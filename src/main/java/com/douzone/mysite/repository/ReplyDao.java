@@ -424,7 +424,7 @@ public class ReplyDao {
 		return result;
 	}
 	
-	public boolean update(long no, String contents) {
+	public boolean update(ReplyVo vo) {
 		boolean result = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -432,8 +432,8 @@ public class ReplyDao {
 			conn = getConnection();
 			String sql = "update reply set contents = ? where no = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, contents);
-			pstmt.setLong(2, no);
+			pstmt.setString(1, vo.getContents());
+			pstmt.setLong(2, vo.getNo());
 			int count = pstmt.executeUpdate();
 			result = count == 1;
 		} catch (Exception e) {

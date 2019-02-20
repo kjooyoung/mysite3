@@ -42,11 +42,11 @@ public class BoardService {
 		return map;
 	}
 	
-	public Map<String, Object> get(Long no) {
+	public Map<String, Object> view(Long no) {
 		Map<String, Object> map = new HashMap<String, Object>(); 
 		BoardVo boardVo = boardDao.getBoard(no);
 		List<ReplyVo> replyList = replyDao.getList(no);
-		
+		boardDao.updateHit(no);
 		map.put("board", boardVo);
 		map.put("reply", replyList);
 		return map;
@@ -56,8 +56,21 @@ public class BoardService {
 		if(no == 0) {
 			boardDao.insert(boardVo);
 		}else {
+			boardDao.updateOrder(no);
 			boardDao.insert(no, boardVo);
 		}
 		
+	}
+	
+	public void delete(Long no) {
+		boardDao.delete(no);
+	}
+	
+	public BoardVo getBoard(Long no) {
+		return boardDao.getBoard(no);
+	}
+	
+	public void update(BoardVo vo) {
+		boardDao.update(vo);
 	}
 }
