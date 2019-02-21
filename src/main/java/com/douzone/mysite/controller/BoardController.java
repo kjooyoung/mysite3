@@ -32,14 +32,12 @@ public class BoardController {
 		if(str.isPresent()) kwd = str.get();
 		Map<String, Object> map = boardService.list(page, kwd);
 		model.addAttribute("map", map);
-		model.addAttribute("page", page);
-		model.addAttribute("kwd", kwd);
 		return "board/list";
 	}
 	
 	@RequestMapping("/view/{page}/{no}")
 	public String view(@PathVariable("page") Integer page,
-					@PathVariable("no") Long no, Model model) {
+					@PathVariable("no") Long no, Model model, HttpSession session) {
 		Map<String, Object> map = boardService.view(no);
 		model.addAttribute("map", map);
 		model.addAttribute("page", page);
@@ -62,7 +60,8 @@ public class BoardController {
 		System.out.println(boardNo);
 		UserVo vo = (UserVo)session.getAttribute("authuser");
 		boardVo.setUserNo(vo.getNo());
-		boardService.write(boardNo, boardVo);
+		boardVo.setNo(boardNo);
+		boardService.write(boardVo);
 		return "redirect:/board/1";
 	}
 	
@@ -76,6 +75,7 @@ public class BoardController {
 	public String modify(@PathVariable("no") Long no, @PathVariable("page") String page, Model model) {
 		model.addAttribute("board", boardService.getBoard(no));
 		model.addAttribute("page",page);
+		
 		return "board/modify";
 	}
 	

@@ -22,7 +22,7 @@ public class GuestbookService {
 		guestbookDao.insert(vo);
 	}
 	
-	public boolean delete(GuestbookVo vo) {
+	public int delete(GuestbookVo vo) {
 		return guestbookDao.delete(vo);
 	}
 }

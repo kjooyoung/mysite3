@@ -24,9 +24,9 @@ public class UserService {
 	
 	public void modify(UserVo userVo) {
 		if("".equals(userVo.getPassword())) {
-			userDao.update(userVo.getNo(), userVo.getName(), userVo.getGender());
+			userDao.update(userVo);
 		} else {
-			userDao.updateAll(userVo.getNo(), userVo.getName(), userVo.getPassword(), userVo.getGender());
+			userDao.updateAll(userVo);
 		}
 	}
 	

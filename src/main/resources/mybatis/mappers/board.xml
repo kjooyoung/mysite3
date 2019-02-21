@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+	<insert id="insert" parameterType="boardvo">
+		<choose>
+			<when test="no == 0">
+			<![CDATA[
+			insert into board values(null, #{title}, #{contents}, now(), 0, 
+				if((select max(a.g_no)+1 from (select g_no from board) a) is null,
+				1,(select max(a.g_no)+1 from (select g_no from board) a)), 1, 0, #{userNo})
+			]]>
+			</when>
+			<otherwise>
+			<![CDATA[
+			insert into board values(null, #{title}, #{contents}, now(), 0, 
+					(select a.g_no from (select g_no from board where no = #{no}) a ), 
+					(select a.o_no from (select o_no from board where no = #{no}) a)+1, 
+					(select a.depth from (select depth from board where no=#{no}) a)+1, #{userNo})
+			]]>
+			</otherwise>
+		</choose>
+	</insert>
+	
+	<select id="getTotalCount" parameterType="string" resultType="int">
+		<![CDATA[
+		select count(*) 
+		from board 
+		where title like #{kwd}
+			and contents like #{kwd}
+		]]>
+		<!-- <if test="_parameter != null and _parameter!=''">
+			
+		</if> -->
+	</select>
+	
+	<update id="updateOrder" parameterType="long">
+		<![CDATA[
+		update board set o_no = o_no +1 
+		where g_no = (select a.g_no from (select g_no from board where no = #{no}) a)  
+		and o_no > (select b.o_no from (select o_no from board where no = #{no}) b)
+		]]>			
+	</update>
+	
+	<delete id="delete" parameterType="long">
+		delete from board where no = #{no}
+	</delete>
+	
+	<update id="updateHit" parameterType="long">
+		update board set hit = hit + 1 where no = #{no}
+	</update>
+	
+	<update id="update" parameterType="boardvo">
+		update board set title = #{title}, contents = #{contents} where no = #{no}
+	</update>
+	
+	<select id="getBoard" parameterType="long" resultType="boardvo">
+		select no, title, contents, write_date as writeDate, hit,
+			g_no as groupNo, o_no as orderNo, depth, user_no as userNo
+		 from board where no = #{no}
+	</select>
+	
+	<select id="getList" parameterType="map" resultType="boardvo">
+		select distinct a.no, a.title, a.contents, 
+			date_format(a.write_date,'%Y-%m-%d %h:%i:%s') as writeDate, a.hit, 
+			a.g_no as groupNo, a.o_no as orderNo, a.depth, 
+			a.user_no as userNo, (select name from user where no = user_no) as userName, 
+			(select count(*) from reply where board_no = a.no) as replyCount 
+		from board a, user b where a.user_no = b.no  
+		and a.title like #{kwd} or a.contents like #{kwd} order by g_no desc, o_no asc limit #{pageStart},#{perPage}
+	</select>
+</mapper>

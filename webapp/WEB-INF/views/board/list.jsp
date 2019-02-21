@@ -38,10 +38,10 @@
 							</c:if>
 							<c:choose>
 								<c:when test="${vo.replyCount ne 0}">
-									<a href="${pageContext.servletContext.contextPath }/board/view/${page }/${vo.no}">${vo.title } [${vo.replyCount }]</a>
+									<a href="${pageContext.servletContext.contextPath }/board/view/${map.page }/${vo.no}">${vo.title } [${vo.replyCount }]</a>
 								</c:when>
 								<c:otherwise>
-									<a href="${pageContext.servletContext.contextPath }/board/view/${page }/${vo.no}">${vo.title }</a>
+									<a href="${pageContext.servletContext.contextPath }/board/view/${map.page }/${vo.no}">${vo.title }</a>
 								</c:otherwise>
 							</c:choose>
 						</td>
@@ -66,7 +66,7 @@
 						</c:if>
 						
 						<c:forEach begin="${map.pageMaker.startPage }" end="${map.pageMaker.endPage }" var="index">
-							<li><a href="${pageContext.servletContext.contextPath }/board/${index}/${kwd}">${index }</a></li>
+							<li><a href="${pageContext.servletContext.contextPath }/board/${index}/${map.kwd}">${index }</a></li>
 						</c:forEach>
 						
 						<c:if test="${map.pageMaker.next eq true and map.pageMaker.endPage > 0}">

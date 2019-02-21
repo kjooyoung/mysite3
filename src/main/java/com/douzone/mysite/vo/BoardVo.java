@@ -1,18 +1,18 @@
 package com.douzone.mysite.vo;
 
 public class BoardVo {
-	private long no;
+	private Long no;
 	private String title;
 	private String contents;
 	private String writeDate;
-	private int hit;
-	private int groupNo;
-	private int orderNo;
-	private int depth;
-	private long userNo;
+	private Integer hit;
+	private Integer groupNo;
+	private Integer orderNo;
+	private Integer depth;
+	private Long userNo;
 	private String userName;
-	private int replyCount;
-	private int count;
+	private Integer replyCount;
+	private Integer count;
 	private String regip;
 	private String filename;
 	
@@ -26,11 +26,11 @@ public class BoardVo {
 		this.filename = filename;
 	}
 
-	public long getNo() {
+	public Long getNo() {
 		return no;
 	}
 
-	public void setNo(long no) {
+	public void setNo(Long no) {
 		this.no = no;
 	}
 
@@ -58,43 +58,43 @@ public class BoardVo {
 		this.writeDate = writeDate;
 	}
 
-	public int getHit() {
+	public Integer getHit() {
 		return hit;
 	}
 
-	public void setHit(int hit) {
+	public void setHit(Integer hit) {
 		this.hit = hit;
 	}
 
-	public int getGroupNo() {
+	public Integer getGroupNo() {
 		return groupNo;
 	}
 
-	public void setGroupNo(int groupNo) {
+	public void setGroupNo(Integer groupNo) {
 		this.groupNo = groupNo;
 	}
 
-	public int getOrderNo() {
+	public Integer getOrderNo() {
 		return orderNo;
 	}
 
-	public void setOrderNo(int orderNo) {
+	public void setOrderNo(Integer orderNo) {
 		this.orderNo = orderNo;
 	}
 
-	public int getDepth() {
+	public Integer getDepth() {
 		return depth;
 	}
 
-	public void setDepth(int depth) {
+	public void setDepth(Integer depth) {
 		this.depth = depth;
 	}
 
-	public long getUserNo() {
+	public Long getUserNo() {
 		return userNo;
 	}
 
-	public void setUserNo(long userNo) {
+	public void setUserNo(Long userNo) {
 		this.userNo = userNo;
 	}
 
@@ -106,19 +106,19 @@ public class BoardVo {
 		this.userName = userName;
 	}
 
-	public int getReplyCount() {
+	public Integer getReplyCount() {
 		return replyCount;
 	}
 
-	public void setReplyCount(int replyCount) {
+	public void setReplyCount(Integer replyCount) {
 		this.replyCount = replyCount;
 	}
 
-	public int getCount() {
+	public Integer getCount() {
 		return count;
 	}
 
-	public void setCount(int count) {
+	public void setCount(Integer count) {
 		this.count = count;
 	}
 
@@ -129,7 +129,8 @@ public class BoardVo {
 	public void setRegip(String regip) {
 		this.regip = regip;
 	}
-
+	
+	
 	@Override
 	public String toString() {
 		return "BoardVo [no=" + no + ", title=" + title + ", contents=" + contents + ", writeDate=" + writeDate

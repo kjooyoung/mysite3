@@ -25,11 +25,16 @@ public class BoardService {
 		//pager 알고리즘
 		Criteria cri = new Criteria();
 		cri.setPage(page);
-		List<BoardVo> list = boardDao.getList(kwd, cri.getPageStart(), cri.getPerPageNum());
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("kwd","%"+kwd+"%");
+		paramMap.put("pageStart", cri.getPageStart());
+		paramMap.put("perPage", cri.getPerPageNum());
+		List<BoardVo> list = boardDao.getList(paramMap);
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		
-		int totalNum = new BoardDao().getTotalCount(kwd);
+		int totalNum = boardDao.getTotalCount("%"+kwd+"%");
 		pageMaker.setTotalCount(totalNum);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -52,13 +57,17 @@ public class BoardService {
 		return map;
 	}
 	
-	public void write(Long no,BoardVo boardVo) {
-		if(no == 0) {
-			boardDao.insert(boardVo);
-		}else {
-			boardDao.updateOrder(no);
-			boardDao.insert(no, boardVo);
+	public void write(BoardVo boardVo) {
+		if(boardVo.getNo() != 0) {
+			boardDao.updateOrder(boardVo.getNo());
 		}
+		boardDao.insert(boardVo);
+//		if(no == 0) {
+//			boardDao.insert(boardVo);
+//		}else {
+//			boardDao.updateOrder(no);
+//			boardDao.insert(no, boardVo);
+//		}
 		
 	}
 	

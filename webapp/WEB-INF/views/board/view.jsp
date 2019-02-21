@@ -40,6 +40,10 @@ $(function(){
 		$(".reply-update-form[data-no="+no+"]").hide();
 		$(".reply-wrap[data-no="+no+"]").show();
 	});
+	
+	${"#reply-btn"}.click(funtion(){
+		f
+	});
 });
 </script>
 </head>
