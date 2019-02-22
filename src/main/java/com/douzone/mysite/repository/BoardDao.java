@@ -22,7 +22,7 @@ public class BoardDao {
 		return sqlSession.selectOne("board.getBoard", no);
 	}
 	
-	public int insert(BoardVo vo) {
+	public long insert(BoardVo vo) {
 		return sqlSession.insert("board.insert", vo);
 	}
 	

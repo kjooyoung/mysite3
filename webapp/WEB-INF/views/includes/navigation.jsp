@@ -7,34 +7,34 @@
 	<ul>
 		<c:choose>
 			<c:when test='${param.menu eq "main" }'>
-				<li class="selected"><a href="${pageContext.servletContext.contextPath }">안대혁</a></li>
+				<li class="selected"><a href="${pageContext.servletContext.contextPath }">김주영</a></li>
 				<li><a href="${pageContext.servletContext.contextPath }/guestbook">방명록</a></li>
 				<li><a href="${pageContext.servletContext.contextPath }/guestbook/ajax">방명록(Ajax)</a></li>
-				<li><a href="${pageContext.servletContext.contextPath }/board/1">게시판</a></li>
+				<li><a href="${pageContext.servletContext.contextPath }/board?page=1&kwd=${kwd}">게시판</a></li>
 			</c:when>
 			<c:when test='${param.menu eq "guestbook" }'>
-				<li><a href="${pageContext.servletContext.contextPath }">안대혁</a></li>
+				<li><a href="${pageContext.servletContext.contextPath }">김주영</a></li>
 				<li class="selected"><a href="${pageContext.servletContext.contextPath }/guestbook">방명록</a></li>
 				<li><a href="${pageContext.servletContext.contextPath }/guestbook/ajax">방명록(Ajax)</a></li>
-				<li><a href="${pageContext.servletContext.contextPath }/board/1">게시판</a></li>
+				<li><a href="${pageContext.servletContext.contextPath }/board?page=1&kwd=${kwd}">게시판</a></li>
 			</c:when>
 			<c:when test='${param.menu eq "guestbook-ajax" }'>
-				<li><a href="${pageContext.servletContext.contextPath }">안대혁</a></li>
+				<li><a href="${pageContext.servletContext.contextPath }">김주영</a></li>
 				<li><a href="${pageContext.servletContext.contextPath }/guestbook">방명록</a></li>
 				<li class="selected"><a href="${pageContext.servletContext.contextPath }/guestbook/ajax">방명록(Ajax)</a></li>
-				<li><a href="${pageContext.servletContext.contextPath }/board/1">게시판</a></li>
+				<li><a href="${pageContext.servletContext.contextPath }/board?page=1&kwd=${kwd}">게시판</a></li>
 			</c:when>
 			<c:when test='${param.menu eq "board" }'>
-				<li><a href="${pageContext.servletContext.contextPath }">안대혁</a></li>
+				<li><a href="${pageContext.servletContext.contextPath }">김주영</a></li>
 				<li><a href="${pageContext.servletContext.contextPath }/guestbook">방명록</a></li>
 				<li><a href="${pageContext.servletContext.contextPath }/guestbook/ajax">방명록(Ajax)</a></li>
-				<li class="selected"><a href="${pageContext.servletContext.contextPath }/board/1">게시판</a></li>
+				<li class="selected"><a href="${pageContext.servletContext.contextPath }/board?page=1&kwd=${kwd}">게시판</a></li>
 			</c:when>
 			<c:otherwise>
-				<li><a href="${pageContext.servletContext.contextPath }">안대혁</a></li>
+				<li><a href="${pageContext.servletContext.contextPath }">김주영</a></li>
 				<li><a href="${pageContext.servletContext.contextPath }/guestbook">방명록</a></li>
 				<li><a href="${pageContext.servletContext.contextPath }/guestbook/ajax">방명록(Ajax)</a></li>
-				<li><a href="${pageContext.servletContext.contextPath }/board/1">게시판</a></li>
+				<li><a href="${pageContext.servletContext.contextPath }/board?page=1&kwd=${kwd}">게시판</a></li>
 			</c:otherwise>
 		</c:choose>
 	</ul>

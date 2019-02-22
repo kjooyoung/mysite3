@@ -9,14 +9,19 @@
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link href="${pageContext.servletContext.contextPath }/assets/css/board.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+a:link {color: black; text-decoration: none;}
+a:visited {color: black; text-decoration: none;}
+a:hover {color: black; text-decoration: none;}
+</style>
 </head>
 <body>
 	<div id="container">
 		<c:import url="/WEB-INF/views/includes/header.jsp"/>
 		<div id="content">
 			<div id="board">
-				<form id="search_form" action="${pageContext.servletContext.contextPath }/board/1" method="post">
-					<input type="text" id="kwd" name="kwd" value="">
+				<form id="search_form" action="${pageContext.servletContext.contextPath }/board?page=1" method="post">
+					<input type="text" id="kwd" name="kwd" value="${map.kwd}">
 					<input type="submit" value="찾기">
 				</form>
 				<table class="tbl-ex">
@@ -38,10 +43,11 @@
 							</c:if>
 							<c:choose>
 								<c:when test="${vo.replyCount ne 0}">
-									<a href="${pageContext.servletContext.contextPath }/board/view/${map.page }/${vo.no}">${vo.title } [${vo.replyCount }]</a>
+									<a href="${pageContext.servletContext.contextPath }/board/view/${vo.no}?page=${map.page }&kwd=${map.kwd}">${vo.title } 
+										<span style="color: red;">[${vo.replyCount }]</span></a>
 								</c:when>
 								<c:otherwise>
-									<a href="${pageContext.servletContext.contextPath }/board/view/${map.page }/${vo.no}">${vo.title }</a>
+									<a href="${pageContext.servletContext.contextPath }/board/view/${vo.no}?page=${map.page }&kwd=${map.kwd}">${vo.title }</a>
 								</c:otherwise>
 							</c:choose>
 						</td>
@@ -62,15 +68,15 @@
 				<div class="pager">
 					<ul>
 						<c:if test="${map.pageMaker.prev }">
-							<li><a href="${pageContext.servletContext.contextPath }/board/${map.pageMaker.startPage-1}">◀</a></li>
+							<li><a href="${pageContext.servletContext.contextPath }/board?page=${map.pageMaker.startPage-1}&kwd=${map.kwd}">◀</a></li>
 						</c:if>
 						
 						<c:forEach begin="${map.pageMaker.startPage }" end="${map.pageMaker.endPage }" var="index">
-							<li><a href="${pageContext.servletContext.contextPath }/board/${index}/${map.kwd}">${index }</a></li>
+							<li><a href="${pageContext.servletContext.contextPath }/board?page=${index}&kwd=${map.kwd}">${index }</a></li>
 						</c:forEach>
 						
 						<c:if test="${map.pageMaker.next eq true and map.pageMaker.endPage > 0}">
-							<li><a href="${pageContext.servletContext.contextPath }/board/${map.pageMaker.endPage+1}">▶</a></li>
+							<li><a href="${pageContext.servletContext.contextPath }/board?page=${map.pageMaker.endPage+1}&kwd=${map.kwd}">▶</a></li>
 						</c:if>
 					</ul>
 				</div>			

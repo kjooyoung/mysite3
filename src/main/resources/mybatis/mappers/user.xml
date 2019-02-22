@@ -4,13 +4,13 @@
 <mapper namespace="user">
 	<insert id="insert" parameterType="uservo">
 		<![CDATA[
-		insert into user values(null,#{name},#{email},#{password},#{gender},now())
+		insert into user values(null,#{name},#{email},#{password},#{gender},now(),null)
 		]]>
 	</insert>
 	
 	<select id="getByEmailAndPassword" parameterType="map" resultType="uservo">
 		<![CDATA[
-		select no, name, email, gender, join_date 
+		select no, name, email, gender, join_date ,role
 		from user where email=#{email} and password=#{password}
 		]]>
 	</select>
@@ -29,7 +29,7 @@
 	</update>
 	
 	<select id="getByNo" parameterType="long" resultType="uservo">
-		select name, email, gender from user where no = #{no}
+		select name, email, gender, role from user where no = #{no}
 	</select>
 	
 </mapper>

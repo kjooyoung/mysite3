@@ -7,10 +7,11 @@ public class UserVo {
 	private String password;
 	private String gender;
 	private String joinDate;
+	private String role;
 	
 	public UserVo() {}
 
-	public UserVo(long no, String name, String email, String password, String gender, String joinDate) {
+	public UserVo(long no, String name, String email, String password, String gender, String joinDate, String role) {
 		super();
 		this.no = no;
 		this.name = name;
@@ -18,6 +19,7 @@ public class UserVo {
 		this.password = password;
 		this.gender = gender;
 		this.joinDate = joinDate;
+		this.role = role;
 	}
 
 	public long getNo() {
@@ -68,10 +70,18 @@ public class UserVo {
 		this.joinDate = joinDate;
 	}
 
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	@Override
 	public String toString() {
 		return "UserVo [no=" + no + ", name=" + name + ", email=" + email + ", password=" + password + ", gender="
-				+ gender + ", joinDate=" + joinDate + "]";
+				+ gender + ", joinDate=" + joinDate + ", role=" + role + "]";
 	}
-	
+
 }

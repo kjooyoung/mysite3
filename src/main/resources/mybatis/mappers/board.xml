@@ -3,6 +3,11 @@
 
 <mapper namespace="board">
 	<insert id="insert" parameterType="boardvo">
+		<selectKey keyProperty="no" order="AFTER" resultType="long">
+			<![CDATA[
+			select last_insert_id()
+			]]>
+		</selectKey>
 		<choose>
 			<when test="no == 0">
 			<![CDATA[

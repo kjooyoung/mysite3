@@ -48,6 +48,7 @@ public class UserController {
 			return "/user/login";
 		}
 		session.setAttribute("authuser", authUser);
+		System.out.println(authUser.getRole());
 		return "redirect:/";
 	}
 

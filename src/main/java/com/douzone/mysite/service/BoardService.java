@@ -62,13 +62,6 @@ public class BoardService {
 			boardDao.updateOrder(boardVo.getNo());
 		}
 		boardDao.insert(boardVo);
-//		if(no == 0) {
-//			boardDao.insert(boardVo);
-//		}else {
-//			boardDao.updateOrder(no);
-//			boardDao.insert(no, boardVo);
-//		}
-		
 	}
 	
 	public void delete(Long no) {

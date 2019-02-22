@@ -15,7 +15,7 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp"/>
 		<div id="content">
 			<div id="board">
-				<form class="board-form" method="post" action="${pageContext.servletContext.contextPath }/board/write">
+				<form class="board-form" method="post" action="${pageContext.servletContext.contextPath }/board/write?page=${page}">
 					<input type="hidden" name="boardNo" value="${boardNo }">
 					<table class="tbl-ex">
 						<tr>
@@ -33,7 +33,14 @@
 						</tr>
 					</table>
 					<div class="bottom">
-						<a href="/board">취소</a>
+						<c:choose>
+							<c:when test="${boardNo eq 0}">
+								<a href="${pageContext.servletContext.contextPath }/board/">취소</a>
+							</c:when>
+							<c:otherwise>
+								<a href="${pageContext.servletContext.contextPath }/board/view/${boardNo}?page=${page}&kwd=${kwd}">취소</a>
+							</c:otherwise>
+						</c:choose>
 						<input type="submit" value="등록">
 					</div>
 				</form>				
