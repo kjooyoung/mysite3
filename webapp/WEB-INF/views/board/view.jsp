@@ -62,6 +62,7 @@ $(function(){
 		<c:import url="/WEB-INF/views/includes/header.jsp"/>
 		<div id="content">
 			<c:set value="\n" var="newline"/>
+			<c:set value="&lt;br&gt;" var="br"/>
 			<c:set value="${map.board }" var="board"/>
 			<c:set value="${map.reply }" var="reply"/>
 			<div id="board" class="board-form">
@@ -77,7 +78,7 @@ $(function(){
 						<td class="label">내용</td>
 						<td>
 							<div class="view-content">
-								${fn:replace(board.contents, newline, "<br>") }
+								${fn:replace(board.contents, newline, "<br/>") }
 							</div>
 						</td>
 					</tr>

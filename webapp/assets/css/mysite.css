@@ -17,7 +17,6 @@ div#header	ul				{ height:20px; margin:0 20px 10px 0 }
 div#header	li				{ float:right }
 div#header	li a 			{ color:#4F4F4F; font-weight:bold; margin-left:10px; text-decoration:none; }
 
-
 /* navigation */
 div#navigation ul			{ width:118px; margin-top:1px }
 div#navigation li			{ width:118px; background-color:#E9E9E9; border:1px solid #DADADA; margin-top:-1px }

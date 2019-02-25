@@ -10,7 +10,7 @@
 	
 	<select id="getByEmailAndPassword" parameterType="map" resultType="uservo">
 		<![CDATA[
-		select no, name, email, gender, join_date ,role
+		select no, name, email, gender, join_date, role
 		from user where email=#{email} and password=#{password}
 		]]>
 	</select>

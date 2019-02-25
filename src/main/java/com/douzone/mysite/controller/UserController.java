@@ -1,6 +1,5 @@
 package com.douzone.mysite.controller;
 
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.douzone.mysite.service.UserService;
 import com.douzone.mysite.vo.UserVo;
+import com.douzone.security.Auth;
+import com.douzone.security.AuthUser;
 
 @Controller
 @RequestMapping("/user")
@@ -39,49 +40,22 @@ public class UserController {
 	public String login() {
 		return "/user/login";
 	}
-
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(@ModelAttribute UserVo userVo, Model model, HttpSession session) {
-		UserVo authUser = userService.login(userVo);
-		if (authUser == null) {
-			model.addAttribute("result", "fail");
-			return "/user/login";
-		}
-		session.setAttribute("authuser", authUser);
-		System.out.println(authUser.getRole());
-		return "redirect:/";
-	}
-
-	@RequestMapping("/logout")
-	public String logout(HttpSession session) {
-		if (session != null && session.getAttribute("authuser") != null) {
-			// logout처리
-			session.removeAttribute("authuser");
-			// browser 메모리에 있는 session id 날림
-			session.invalidate();
-		}
-		return "redirect:/";
-	}
-
+	
+	@Auth
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
-	public String modify(Model model, HttpSession session) {
-		UserVo authUser = null;
-		
-		if(session != null) {
-			authUser = (UserVo)session.getAttribute("authuser");
-		}
-		if(authUser == null) {
-			return "redirect:/";
-		}
+	public String modify(@AuthUser UserVo authUser, Model model) {
+		System.out.println(authUser);
+		UserVo userVo = userService.getUser(authUser.getNo());
+		model.addAttribute("userVo",userVo);
 		return "user/modify";
 	}
-
+	
+	@Auth
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String modify(@ModelAttribute UserVo userVo, HttpSession session) {
-		UserVo authUser = (UserVo) session.getAttribute("authuser");
+	public String modify(@AuthUser UserVo authUser, @ModelAttribute UserVo userVo) {
 		userVo.setNo(authUser.getNo());
 		userService.modify(userVo);
-		session.setAttribute("authuser", userService.getUser(userVo.getNo()));
+		authUser.setName(userVo.getName());
 		return "redirect:/";
 	}
 }

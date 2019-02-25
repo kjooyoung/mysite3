@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.douzone.mysite.service.BoardService;
 import com.douzone.mysite.vo.BoardVo;
 import com.douzone.mysite.vo.UserVo;
+import com.douzone.security.Auth;
+import com.douzone.security.AuthUser;
 
 @Controller
 @RequestMapping("/board")
@@ -38,7 +40,7 @@ public class BoardController {
 	@RequestMapping("/view/{no}")
 	public String view(@RequestParam(value="page", required=false, defaultValue="1") Integer page,
 					@RequestParam(value="kwd", required=false, defaultValue="") String kwd,
-					@PathVariable("no") Long no, Model model, HttpSession session) {
+					@PathVariable("no") Long no, Model model) {
 		Map<String, Object> map = boardService.view(no);
 		model.addAttribute("map", map);
 		model.addAttribute("page", page);
@@ -46,6 +48,7 @@ public class BoardController {
 		return "board/view";
 	}
 	
+	@Auth
 	@RequestMapping(value= {"/write","/write/{boardNo}"}, method=RequestMethod.GET)
 	public String write(@RequestParam(value="page", required=false, defaultValue="1") Integer page,
 			@RequestParam(value="kwd", required=false, defaultValue="") String kwd,
@@ -61,17 +64,13 @@ public class BoardController {
 		return "board/write";
 	}
 	
+	@Auth
 	@RequestMapping(value= {"/write"}, method=RequestMethod.POST)
 	public String write(@RequestParam(value="boardNo", required=false, defaultValue="0") Long boardNo,
 			@RequestParam(value="page", required=false, defaultValue="1") Integer page,
 			@RequestParam(value="kwd", required=false, defaultValue="") String kwd,
-			@ModelAttribute BoardVo boardVo, HttpSession session, Model model ) {
-		System.out.println(boardNo);
-		UserVo authUser = (UserVo)session.getAttribute("authuser");
-		//접근제어
-		if(null == authUser) {
-			return "redirect:/";
-		}
+			@ModelAttribute BoardVo boardVo, @AuthUser UserVo authUser, Model model ) {
+		
 		boardVo.setUserNo(authUser.getNo());
 		boardVo.setNo(boardNo);
 		boardService.write(boardVo);
@@ -79,32 +78,26 @@ public class BoardController {
 		return "redirect:/board/view/"+boardVo.getNo();
 	}
 	
+	@Auth
 	@RequestMapping("/delete/{no}")
-	public String delete(@PathVariable("no") Long no, HttpSession session) {
-		UserVo authUser = (UserVo)session.getAttribute("authuser");
-		//접근제어
-		if(null == authUser) {
-			return "redirect:/";
-		}
-		
+	public String delete(@PathVariable("no") Long no, @AuthUser UserVo authUser) {
 		//세션유저 no 와 글 작성자 no가 같아야 삭제할 수있게 해야함
-		boardService.delete(no);
+		if(authUser.getNo() == no) {
+			boardService.delete(no);
+		}
 		return "redirect:/board";
 	}
 	
+	@Auth
 	@RequestMapping(value="/modify/{no}", method=RequestMethod.GET)
 	public String modify(@RequestParam(value="page", required=false, defaultValue="1") Integer page,
-					@PathVariable("no") Long no, Model model, HttpSession session) {
-		UserVo authUser = (UserVo)session.getAttribute("authuser");
-		//접근제어
-		if(null == authUser) {
-			return "redirect:/";
-		}
+					@PathVariable("no") Long no, Model model, @AuthUser UserVo authUser) {
 		model.addAttribute("board", boardService.getBoard(no));
 		model.addAttribute("page",page);
 		return "board/modify";
 	}
 	
+	@Auth
 	@RequestMapping(value="/modify/{no}", method=RequestMethod.POST)
 	public String modify(@RequestParam(value="page", required=false, defaultValue="1") Integer page,
 			@PathVariable("no") Long no, @ModelAttribute BoardVo boardVo) {
