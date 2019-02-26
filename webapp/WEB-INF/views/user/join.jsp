@@ -59,12 +59,17 @@ $(function(){
 		if(email == "") return;
 		
 		$.ajax({
-			url: "${pageContext.servletContext.contextPath }/api/user?",
+			url: "${pageContext.servletContext.contextPath }/user/api/checkemail?email="+email,
 			type: "post",
 			dataType: "json",
-			data: "a=ajax-checkemail&email="+email,
+			data: "",
 			success: function(response){
-				if(response.exist == true){
+				if(response.result == "fail"){
+					console.error(response.message);
+					return;
+				}
+				
+				if(response.data == true ){
 					alert("이미 존재하는 이메일입니다. 다른 이메일을 사용해주세요.");
 					$("#email").val("").focus();
 					return;

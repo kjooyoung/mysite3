@@ -35,10 +35,45 @@
 			and a.board_no = #{no} order by a.g_no asc, o_no asc
 	</select>
 	
-	<!-- <update id="updateOrder" parameterType="replyvo">
+	<update id="updateOrder" parameterType="replyvo">
+		<![CDATA[
 		update reply set o_no = o_no +1 
 		where board_no = #{boardNo} and g_no = #{groupNo} and o_no >= #{orderNo}
-	</update> -->
+		]]>
+	</update>
 	
+	<insert id="insertReReply" parameterType="replyvo">
+		insert into reply values(null,#{contents},now(),
+			#{boardNo},#{userNo},#{groupNo},#{orderNo},#{depth})
+	</insert>
+
+	<insert id="insert" parameterType="replyvo">
+		insert into reply values(null,#{contents},now(), #{boardNo},#{userNo},
+		if((select max(a.g_no)+1 from (select g_no from reply) a) is null,
+		1,(select max(a.g_no)+1 from (select g_no from reply) a)),1,0)
+	</insert>
 	
+	<select id="getRefOrderNo" parameterType="replyvo" resultType="long">
+		<![CDATA[
+		select min(o_no) from reply where depth <= #{depth} 
+			and g_no = #{groupNo} and o_no > #{orderNo} and board_no = #{boardNo}
+		]]>
+	</select>
+	
+	<select id="getMaxOrderNo" parameterType="replyvo" resultType="long">
+		select max(o_no)+1 from reply 
+		where board_no = #{boardNo} and g_no = #{groupNo}
+	</select>
+	
+	<select id="getReply" parameterType="long" resultType="replyvo">
+		select * from reply where no = #{no}
+	</select>
+	
+	<delete id="delete" parameterType="long">
+		delete from reply where no = #{no}
+	</delete>
+	
+	<update id="update" parameterType="replyvo">
+		update reply set contents = #{contents} where no = #{no}
+	</update>
 </mapper>

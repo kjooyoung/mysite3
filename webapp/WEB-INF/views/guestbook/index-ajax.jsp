@@ -74,7 +74,7 @@ var fetchList = function(){
 	}
 	++page;
 	$.ajax({
-		url: "${pageContext.servletContext.contextPath }/api/guestbook?a=ajax-list&p="+page,
+		url: "${pageContext.servletContext.contextPath }/guestbook/api/list?page="+page,
 		type: "get",
 		dataType: "json",
 		data: "",
@@ -104,7 +104,7 @@ var fetchList = function(){
 
 var insert = function(){
 	$.ajax({
-		url: "${pageContext.servletContext.contextPath }/api/guestbook?a=ajax-insert",
+		url: "${pageContext.servletContext.contextPath }/guestbook/api/add",
 		type: "post",
 		dataType: "json",
 		data: {
@@ -113,7 +113,7 @@ var insert = function(){
 			"message":$("#tx-content").val()
 		},
 		success: function(response){
-			render(response, true);
+			render(response.data, true);
 			$("#input-name").val("");
 			$("#input-password").val("");
 			$("#tx-content").val("");
@@ -137,7 +137,7 @@ $(function(){
 				//ajax 삭제
 				console.log("ajax 삭제 작업");
 				$.ajax({
-					url: "${pageContext.servletContext.contextPath }/api/guestbook?a=ajax-delete",
+					url: "${pageContext.servletContext.contextPath }/guestbook/api/delete",
 					type: "post",
 					dataType: "json",
 					data: {
@@ -146,11 +146,11 @@ $(function(){
 					},
 					success: function(response){
 						console.log(response.result);
-						if(response.result == false){
+						if(response.data == 0){
 							$("#error").show();
 							$("#password-delete").val("");
 						} else{
-							$("li[data-no="+response.result+"]").remove();
+							$("li[data-no="+response.data+"]").remove();
 							dialogDelete.dialog("close");
 						}
 					},

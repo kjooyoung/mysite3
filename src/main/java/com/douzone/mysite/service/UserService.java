@@ -34,4 +34,8 @@ public class UserService {
 		return userDao.get(no);
 	}
 	
+	public UserVo get(String email) {
+		return userDao.get(email);
+	}
+	
 }

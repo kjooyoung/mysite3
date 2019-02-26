@@ -46,6 +46,13 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 
+		<!-- spring aspect -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+
 		<!-- MySql Connector JDBC Driver -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -85,6 +92,13 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
+		</dependency>
+
+		<!-- jackson -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.1.1</version>
 		</dependency>
 
 		<!-- Logback -->

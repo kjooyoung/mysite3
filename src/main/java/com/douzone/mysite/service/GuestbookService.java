@@ -18,11 +18,20 @@ public class GuestbookService {
 		return list;
 	}
 	
-	public void add(GuestbookVo vo) {
-		guestbookDao.insert(vo);
+	public List<GuestbookVo> getListByPage(int page){
+		List<GuestbookVo> list = guestbookDao.getListByPage(page);
+		return list;
 	}
 	
-	public int delete(GuestbookVo vo) {
-		return guestbookDao.delete(vo);
+	public long add(GuestbookVo vo) {
+		return guestbookDao.insert(vo);
+	}
+	
+	public long delete(GuestbookVo vo) {
+		if(guestbookDao.delete(vo) == 0) {
+			
+			return 0;
+		}
+		return vo.getNo();
 	}
 }

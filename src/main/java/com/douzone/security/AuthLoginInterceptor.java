@@ -41,9 +41,7 @@ public class AuthLoginInterceptor extends HandlerInterceptorAdapter{
 		
 		//로그인 처리
 		HttpSession session = request.getSession(true);
-		System.out.println("세션");
 		session.setAttribute("authuser", userVo);
-		System.out.println(userVo.getRole());
 		response.sendRedirect(request.getContextPath()+"/");
 		return false;
 	}
