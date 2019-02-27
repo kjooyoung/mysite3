@@ -8,15 +8,16 @@ import com.douzone.mysite.vo.SiteVo;
 
 @Service
 public class SiteService {
+	
 	@Autowired
 	private SiteDao siteDao;
 	
-	public SiteVo get() {
-		return siteDao.get();
+	public SiteVo getSite() {
+		return siteDao.getSite();
 	}
 	
-	public void modify(SiteVo vo) {
-		siteDao.update(vo);
+	public void modifySite(SiteVo vo) {
+		siteDao.updateSite(vo);
 	}
 	
 }

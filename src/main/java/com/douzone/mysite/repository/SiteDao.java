@@ -11,11 +11,15 @@ public class SiteDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public SiteVo get() {
-		return sqlSession.selectOne("site.get");
+	public SiteVo getSite() {
+		return sqlSession.selectOne("site.getSite");
 	}
 	
-	public int update(SiteVo vo) {
-		return sqlSession.update("site.update", vo);
+	public int updateSite(SiteVo vo) {
+		return sqlSession.update("site.updateSite", vo);
+	}
+	
+	public int updateProfile(String profile) {
+		return sqlSession.update("site.updateProfile", profile);
 	}
 }

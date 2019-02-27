@@ -2,12 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="site">
-	<select id="get" resultType="sitevo">
+	<select id="getSite" resultType="sitevo">
 		select * from site
 	</select>
 	
-	<update id="update" parameterType="sitevo">
-		update site set title = #{title}, welcome = #{welcome}, 
-				description = #{description}
+	<update id="updateSite" parameterType="sitevo">
+		update site set title = #{title}, profile = #{profile}, 
+		welcome = #{welcome}, description = #{description}
+	</update>
+	
+	<update id="updateProfile" parameterType="string">
+		update site set profile = #{profile}
 	</update>
 </mapper>
