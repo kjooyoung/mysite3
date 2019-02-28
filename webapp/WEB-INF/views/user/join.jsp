@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,7 +15,7 @@
 <script type="text/javascript">
 $(function(){
 	//form validation
-	$("#join-form").submit(function(){
+	/* $("#join-form").submit(function(){
 		// 1. 이름 체크
 		if($("#name").val() == ""){
 			alert("이름은 필수 입력 항목입니다.");
@@ -27,13 +29,13 @@ $(function(){
 			$("#email").focus();
 			return false;
 		}
-		/*
+
 		// 2-1. 이메일 중복 체크 유무
 		if($("#img-checkemail").is(":visible") == false){
 			alert("이메일 중복체크를 해주세요.");
 			return false;
 		}
-		*/
+
 		// 3. 비밀번호 체크
 		if($("input[type='password']").val() == ""){
 			alert("비밀번호는 필수 입력 항목입니다.");
@@ -51,7 +53,7 @@ $(function(){
 	$("#email").change(function(){
 		$("#btn-checkemail").show();
 		$("#img-checkemail").hide();
-	});
+	}); */
 	
 	// 이메일 중복 체크 유무
 	$("#btn-checkemail").click(function(){
@@ -93,18 +95,29 @@ $(function(){
 		<div id="content">
 			<div id="user">
 
-				<form id="join-form" name="joinForm" method="post" action="${pageContext.servletContext.contextPath }/user/join">
+				<form:form id="join-form" name="joinForm" method="post" modelAttribute="userVo" 
+							action="${pageContext.servletContext.contextPath }/user/join">
 					<label class="block-label" for="name">이름</label>
-					<input id="name" name="name" type="text" value="">
+					<form:input path="name"/>
+					<p style="margin:0; padding:0; font-weight:bold; color:red; text-align: left">
+						<form:errors path="name"/>
+					</p>
 
+					
 					<label class="block-label" for="email">이메일</label>
-					<input id="email" name="email" type="text" value="">
+					<!-- 자동으로 id="email" name="email" input 태그를 만들어줌  -->
+					<form:input path="email"/>
+					<p style="margin:0; padding:0; font-weight:bold; color:red; text-align: left">
+						<form:errors path="email"/>
+					</p>
 					<img id="img-checkemail" style="width:20px; display:none;" alt="" src="${pageContext.servletContext.contextPath }/assets/images/check.png">
 					<input id="btn-checkemail" type="button" value="이메일확인">
 					
 					<label class="block-label">패스워드</label>
-					<input name="password" type="password" value="">
-					
+					<form:password path="password"/>
+					<p style="margin:0; padding:0; font-weight:bold; color:red; text-align: left">
+						<form:errors path="password"/>
+					</p>
 					<fieldset>
 						<legend>성별</legend>
 						<label>여</label> <input type="radio" name="gender" value="female" checked="checked">
@@ -119,7 +132,7 @@ $(function(){
 					
 					<input type="submit" value="가입하기">
 					
-				</form>
+				</form:form>
 			</div>
 		</div>
 		<jsp:include page="/WEB-INF/views/includes/navigation.jsp"/>
