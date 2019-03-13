@@ -23,7 +23,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		
 		// 2. Casting
 		HandlerMethod handlerMethod = (HandlerMethod)handler;
-		
+
 		// 3. Method에 @Auth 받아오기
 		Auth auth = handlerMethod.getMethodAnnotation(Auth.class);
 		
