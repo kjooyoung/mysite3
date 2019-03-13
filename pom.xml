@@ -199,6 +199,19 @@
 					<warSourceDirectory>webapp</warSourceDirectory>
 				</configuration>
 			</plugin>
+			
+			<!-- /usr/local/douzone/tomcat/conf/tomcat-users.xml 에서 -->
+			<!-- 계정확인 -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>tomcat-maven-plugin</artifactId>
+				<configuration>
+					<url>http://127.0.0.1:8080/manager/text</url>
+					<path>/mysite3</path>
+					<username>admin</username>
+					<password>1q2w3e</password>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 </project>
